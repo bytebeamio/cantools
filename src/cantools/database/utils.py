@@ -173,8 +173,10 @@ def decode_data(data: bytes,
         if scaling:
             decoded[signal.name] = signal.conversion.raw_to_scaled(value, decode_choices)
         elif (decode_choices
-              and signal.conversion.choices
-              and (choice := signal.conversion.choices.get(value, None)) is not None):
+              and signal.conversion.choices):
+            choice = signal.conversion.choices.get(value, None)
+            if choice is None:
+                choice = NamedSignalValue(value=value, name=str(value))
             decoded[signal.name] = choice
         else:
             decoded[signal.name] = value
