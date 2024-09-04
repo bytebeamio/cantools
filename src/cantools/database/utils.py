@@ -176,8 +176,8 @@ def decode_data(data: bytes,
               and signal.conversion.choices):
             choice = signal.conversion.choices.get(value, None)
             if choice is None:
-                choice = NamedSignalValue(value=value, name=str(value))
-            decoded[signal.name] = choice
+                choice = str(value)
+            decoded[signal.name] = str(choice)
         else:
             decoded[signal.name] = value
 
